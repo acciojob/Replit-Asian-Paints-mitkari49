@@ -1,28 +1,23 @@
-// Function to reset all grid items to transparent
-function resetGridColors() {
-    const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach(item => {
-        item.style.backgroundColor = 'transparent';
+let container = document.querySelector(".grid-container");
+let submit = document.querySelector("#change_button");
+let reset = document.querySelector("#reset_button");
+for(let i=0; i<9; i++){
+    let newdiv = document.createElement("div");
+    newdiv.innerText = i+1;
+    newdiv.className = "grid-item same";
+    container.append(newdiv);
+}
+let items = document.querySelectorAll(".same");
+let input = document.querySelector("#block_id");
+let color = document.querySelector("#colour_id");
+submit.addEventListener("click", changecolor);
+function changecolor() {
+    let gridnumber = input.value;
+    items[gridnumber-1].style.backgroundColor = color.value;		
+}
+reset.addEventListener("click", resetColor);
+function resetColor() {
+    items.forEach(item => {
+        item.style.backgroundColor = "transparent";
     });
 }
-
-// Function to change the color of a specific grid item
-function changeGridColor() {
-    const blockId = document.getElementById('block_id').value;
-    const color = document.getElementById('colour_id').value;
-
-    // Reset all colors to transparent
-    resetGridColors();
-
-    // Find the grid item by ID and change its color
-    const gridItem = document.getElementById(blockId);
-    if (gridItem) {
-        gridItem.style.backgroundColor = color;
-    } else {
-        alert('Invalid Block ID! Enter a number between 1 and 9.');
-    }
-}
-
-// Add event listeners for buttons
-document.getElementById('change_button').addEventListener('click', changeGridColor);
-document.getElementById('Reset').addEventListener('click', resetGridColors);
